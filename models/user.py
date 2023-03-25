@@ -1,4 +1,5 @@
 """This module defines a class User"""
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String
 from .base_model import BaseModel, Base
 
