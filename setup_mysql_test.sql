@@ -1,4 +1,3 @@
-
 -- Create Database and grant permission for test
 
 CREATE DATABASE IF NOT EXISTS hbnb_test_db;
