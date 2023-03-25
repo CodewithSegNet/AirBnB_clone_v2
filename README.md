@@ -3,11 +3,18 @@
 This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
 
 ---
+Table of Contents
+-----------------
 
-<center><h3>Repository Contents by Project Task</h3> </center>
+1. [Repository Contents by Project Task](#1)
+2. [General USe](#2)
+3. [Examples](#3)
+4. [Deploy static](./deploy_static.md)
+
+<center><h3 id="1">Repository Contents by Project Task</h3> </center>
 
 | Tasks | Files | Description |
-| ----- | ----- | ------ |
+| ----- | ----- | -----------
 | 0: Authors/README File | [AUTHORS](https://github.com/justinmajetich/AirBnB_clone/blob/dev/AUTHORS) | Project authors |
 | 1: Pep8 | N/A | All code is pep8 compliant|
 | 2: Unit Testing | [/tests](https://github.com/justinmajetich/AirBnB_clone/tree/dev/tests) | All class-defining modules are unittested |
@@ -21,7 +28,7 @@ This repository contains the initial stage of a student project to build a clone
 | 10. Console 1.0 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) | Update the console and file storage system to work dynamically with all  classes update file storage |
 <br>
 <br>
-<center> <h2>General Use</h2> </center>
+<center> <h2 id="2">General Use</h2> </center>
 
 1. First clone this repository.
 
@@ -67,7 +74,7 @@ Advanced syntax is implemented for the following commands:
 
 <br>
 <br>
-<center> <h2>Examples</h2> </center>
+<center> <h2 id="3">Examples</h2> </center>
 <h3>Primary Command Syntax</h3>
 
 ###### Example 0: Create an object
