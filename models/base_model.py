@@ -16,11 +16,11 @@ class BaseModel(Base):
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        for key, value in Kwargs.items():
+        for key, value in kwargs.items():
             if key != '__class__':
                 setattr(self, key, value)
-            self.id = str(uuid.uuid4())
-            seld.created_at = self.updated_at = datetime.utcnow()
+        self.id = str(uuid.uuid4())
+        self.created_at = self.updated_at = datetime.utcnow()
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -35,6 +35,8 @@ class BaseModel(Base):
         storage.save()
 
     def delete(self):
+        """delete function"""
+        from models import storage
         storage.delete(self)
 
     def to_dict(self):
@@ -42,6 +44,8 @@ class BaseModel(Base):
         dict_copy = self.__dict__.copy()
         if '_sa_instance_state' in dict_copy:
             dict_copy.pop('_sa_instance_state', None)
+        if 'created_at' in dict_copy:
         dict_copy['created_at'] = dict_copy['created_at'].isoformat()
+        if 'updated_at' in dict_copy:
         dict_copy['updated_at'] = dict_copy['updated_at'].isoformat()
         return dict_copy
