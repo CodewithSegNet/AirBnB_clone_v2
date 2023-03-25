@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base
 
 
-class DBStorage:
+class DBStorage(BaseModel, Base):
     """
     This class is responsible for storing and retrieving objects
     to and from the MySQL database.
