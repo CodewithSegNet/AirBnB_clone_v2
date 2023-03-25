@@ -150,4 +150,4 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 
 ## Contributors
 * [Olusegun Emmanuel](https://github.com/CodewithSegNet/AirBnB_clone_v2/)
-* [Muhammed Umar](https://github.com/MuhammedumarALX/AirBnB_clone_v2/)
+* [Umar Muhammed](https://github.com/MuhammedumarALX/AirBnB_clone_v2/)
