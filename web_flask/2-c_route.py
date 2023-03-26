@@ -1,27 +1,28 @@
 #!/usr/bin/python3
-""" Script that runs an app with Flask framework """
+# Python script that starts a flask application on 0.0.0.0 port 5000/ with
+# variables
 from flask import Flask
-
-
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 
-@app.route('/', strict_slashes=False)
-def hello_hbnb():
-    """ Function called with / route """
-    return 'Hello HBNB!'
+@app.route('/')
+def hello_world():
+    """Python function to print Hello new"""
+    return "Hello new!"
 
 
-@app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """ Function called with /hbnb route """
-    return 'HBNB'
+@app.route('/new')
+def new():
+    """Python function to print new"""
+    return "new"
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def c_text(text):
-    """ Function called with /c/<text> route """
-    return 'C %s' % text.replace('_', ' ')
+@app.route('/c/<var>')
+def c_is_fun(var):
+    """Python function to print C with directory"""
+    return "C " + var.replace('_', ' ')
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0", port=5000)
