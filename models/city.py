@@ -1,23 +1,21 @@
 #!/usr/bin/python3
-'''
-    Define the class City.
-'''
+"""This is the city class"""
+from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
-import sqlalchemy
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-from os import getenv
+from models.place import Place
 
 
 class City(BaseModel, Base):
-    '''
-        Define the class City that inherits from BaseModel.
-    '''
-    __tablename__ = 'cities'
-    if getenv("new_TYPE_STORAGE") == "db":
-        name = Column(String(128), nullable=False)
-        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        places = relationship('Place', cascade='all, delete', backref='city')
-    else:
-        state_id = ""
-        name = ""
+    """This is the class for City
+    Attributes:
+        state_id: The state id
+        name: input name
+    """
+    __tablename__ = "cities"
+    name = Column(String(128), nullable=False)
+    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+    places = relationship("Place", cascade='all, delete, delete-orphan',
+                          backref="cities")
