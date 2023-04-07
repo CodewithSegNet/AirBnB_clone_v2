@@ -6,7 +6,9 @@ sudo apt-get install -y nginx
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 
-echo "Simple content" | sudo tee /data/web_static/releases/test/index.html
+echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html
+
+echo "Holberton School" | sudo tee /localhost/hbnb_static/index.html
 
 sudo ln -sf /data/web_static/releases/test /data/web_static/current
 
