@@ -1,27 +1,64 @@
 #!/usr/bin/python3
-# Fabric script to deploy web_static to server
-
-from fabric.api import *
+"""Distributes an archive to your web servers"""
 import os
+from fabric.api import *
+from datetime import datetime
 
-env.user = 'ubuntu'
-env.hosts = ['100.26.11.89', '54.237.96.84']
-env.key_filename = '~/.ssh/school'
 
+def do_pack():
+    """Create a tar gzipped archive of the directory web_static"""
+    try:
+        dt = datetime.now()
+        file_name = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
+                                                                  dt.month,
+                                                                  dt.day,
+                                                                  dt.hour,
+                                                                  dt.minute,
+                                                                  dt.second)
+        if not os.path.isdir("versions"):
+            local("mkdir versions")
+
+        local("tar -cvzf {} web_static/*".format(file_name))
+        return file_name
+    except Exception:
+        return None
+
+
+env.hosts = ['100.26.171.136', '54.197.82.190']
 
 def do_deploy(archive_path):
-    """Fabric script to deploy web_static to servers"""
-    if os.path.exists(archive_path):
-        new_path = archive_path[9:]
-        de_path = '/data/web_static/releases/{}/'.format(new_path)[0:-5]
+    """deploys the archive to the servers and updates it"""
+    if not os.path.isfile(archive_path):
+        return False
+
+    try:
+        # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, '/tmp/')
-        run('mkdir -p {}'.format(de_path))
-        run('tar -xzf /tmp/{} -C {}'.format(new_path, de_path))
-        run('rm /tmp/{}'.format(new_path))
-        run('mv  {}/web_static/* {}'.format(de_path, de_path))
-        run('rm -rf {}/web_static'.format(de_path))
+
+        # Uncompress the archive to the folder
+        # /data/web_static/releases/<archive filename without extension>
+        # on the web server
+        filename = os.path.basename(archive_path)
+        fname = filename.split('.')[0]
+        folder_name = '/data/web_static/releases/' + fname
+        run('mkdir -p {}'.format(folder_name))
+        run('tar -xzf /tmp/{} -C {}'.format(filename, folder_name))
+
+        # Delete the archive from the web server
+        run('rm /tmp/{}'.format(filename))
+
+        # Move content out of the sub-folder
+        run("mv /data/web_static/releases/{}/web_static/*\
+            /data/web_static/releases/{}/".format(fname, fname))
+
+        # Delete the symbolic link /data/web_static/current from the web server
         run('rm -rf /data/web_static/current')
-        run('ln -s {} /data/web_static/current'.format(de_path))
-        print('New version deployed successfully!')
+
+        # Create a new the symbolic link /data/web_static/current on the
+        # web server linked to the new version of your code
+        # (/data/web_static/releases/<archive filename without extension>)
+        run('ln -s {} /data/web_static/current'.format(folder_name))
+
         return True
-    return False
+    except Exception:
+        return False
